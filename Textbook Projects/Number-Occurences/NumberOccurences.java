@@ -27,7 +27,7 @@ public class NumberOccurences {
     public static ArrayList<Integer> readInput(ArrayList<Integer> a, Scanner sc) {
         while (true) {
             int n = sc.nextInt();
-            if (n>0 & n<100)
+            if (n>0 && n<100)
                 a.add(n);
             
             if (n==0)
