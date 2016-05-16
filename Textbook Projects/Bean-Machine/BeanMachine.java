@@ -1,3 +1,11 @@
+/*
+    Simulates a bean machine when given the number of balls
+    to drop and the number of slots in the machine. It randomly 
+    generates a path string, counts the # of R's in the string,
+    and textually displays how many balls landed in 
+    each slot (kind of like a histogram).
+*/
+
 import java.util.*;
 public class BeanMachine {
 
