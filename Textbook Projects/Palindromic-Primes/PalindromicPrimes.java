@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.Scanner;
+/*
+    Prints n amount of palindromic primes.
+*/
 public class PalindromicPrimes {
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
