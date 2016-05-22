@@ -1,6 +1,5 @@
 public class Sierpinski {
 
-
 	// height of equilat Δ w/ sides of specified length
 	private static double height(double length) { // works
 		return (Math.sqrt(3.0)/2.0)*length;
@@ -16,19 +15,17 @@ public class Sierpinski {
 	// draws sierpinski Δ of order n, s.t. the largest filled Δ 
 	// has bottom vertex (x,y) and sides of the specified length
 	private static void sierpinski(int n, double x, double y, double length) {
-			if (n==0) return;
+		if (n==0) return;
 
 
-			fillΔ(x,y,length);
-			sierpinski(n-1, x-length/2, y, length/2);
-			sierpinski(n-1, x+length/2, y, length/2);
-			sierpinski(n-1, x, y+height(length),length/2);
+		fillΔ(x,y,length);
+		sierpinski(n-1, x-length/2, y, length/2);
+		sierpinski(n-1, x+length/2, y, length/2);
+		sierpinski(n-1, x, y+height(length),length/2);
 	}
 
-
-
 	public static void main(String[] args) {
-		int N = Integer.parseInt(args[0]);
+	int N = Integer.parseInt(args[0]);
 		
 		StdDraw.line(0,0,1,0);
 		StdDraw.line(0,0,0.5,Math.sqrt(3.0)/2.0);
@@ -36,5 +33,4 @@ public class Sierpinski {
 		
 		sierpinski(N,0.5,0,0.5);
 	}
-		
 }
