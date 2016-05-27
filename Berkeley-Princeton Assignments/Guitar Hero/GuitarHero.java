@@ -3,14 +3,14 @@ public class GuitarHero {
 		String kb = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		GuitarString[] strings = new GuitarString[kb.length()];
 
-		int numplots = 2000; // i'll be plotting the last 1000 samples
+		int numplots = 2000; // i'll be plotting the last 2000 samples
         
-        StdDraw.setXscale(0, numplots); // sets the scale
-        StdDraw.setYscale(-0.5, 0.5);	// for x and y coords
-
-        double[] y = new double[numplots]; // array of y coords
-        double[] time = new double[numplots]; // array of x coords
-        int timestep = 0;
+	        StdDraw.setXscale(0, numplots); // sets the scale
+	        StdDraw.setYscale(-0.5, 0.5);	// for x and y coords
+	
+	        double[] y = new double[numplots]; // array of y coords
+	        double[] time = new double[numplots]; // array of x coords
+	        int timestep = 0;
 		
 
 		for (int i=0; i<strings.length; i++) { // sets up each string
@@ -18,8 +18,8 @@ public class GuitarHero {
 			strings[i] = new GuitarString(freq);
 		}
 
-		for(int i = 0; i < numplots; i++) 
-            time[i] = i;
+		for(int i = 0; i < numplots; i++) // sets up my x-axis
+	                time[i] = i;
 
 		while (true) {
 
@@ -42,12 +42,13 @@ public class GuitarHero {
 			StdAudio.play(sample);
 
 			if(timestep == numplots) { // plots the graph if the last 
-                StdDraw.clear();	   // 1000 samples were collected
-                StdDraw.polygon(time, y);
-                timestep = 0;
-            }
-            y[timestep] = sample;
-            timestep++;
+		                StdDraw.clear();   // 2000 samples were collected
+		                StdDraw.polygon(time, y);
+		                timestep = 0;
+	            	}
+		        
+		        y[timestep] = sample;
+		        timestep++;
 		}
 
 	}
