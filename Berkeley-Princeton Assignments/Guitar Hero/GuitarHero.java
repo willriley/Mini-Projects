@@ -1,35 +1,53 @@
 public class GuitarHero {
 	public static void main(String[] args) {
-
-		GuitarString[] keys = new GuitarString[37];
 		String kb = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+		GuitarString[] strings = new GuitarString[kb.length()];
 
-		for (int i=0; i<keys.length; i++) {
+		int numplots = 2000; // i'll be plotting the last 1000 samples
+        
+        StdDraw.setXscale(0, numplots); // sets the scale
+        StdDraw.setYscale(-0.5, 0.5);	// for x and y coords
+
+        double[] y = new double[numplots]; // array of y coords
+        double[] time = new double[numplots]; // array of x coords
+        int timestep = 0;
+		
+
+		for (int i=0; i<strings.length; i++) { // sets up each string
 			double freq = 440.0 * Math.pow(2.0,(i - 24.0)/12.0);
-			keys[i] = new GuitarString(freq);
+			strings[i] = new GuitarString(freq);
 		}
+
+		for(int i = 0; i < numplots; i++) 
+            time[i] = i;
 
 		while (true) {
 
 			if (StdDraw.hasNextKeyTyped()) {
-				char key = StdDraw.nextKeyTyped();
+				char string = StdDraw.nextKeyTyped();
 
 				// plucks the corresponding string
-				if (kb.indexOf(key) != -1)
-					keys[kb.indexOf(key)].pluck();
+				if (kb.indexOf(string) != -1)
+					strings[kb.indexOf(string)].pluck();
 				else
-					System.out.println("That's not a key.");
+					System.out.println("That's not a string.");
 			}
 
 			double sample = 0.0;
-
-			for (GuitarString g : keys)
+			for (GuitarString g : strings) {
 				sample+=g.sample();
+				g.tic();
+			}
 
 			StdAudio.play(sample);
 
-			for (GuitarString g : keys)
-				g.tic();
+			if(timestep == numplots) { // plots the graph if the last 
+                StdDraw.clear();	   // 1000 samples were collected
+                StdDraw.polygon(time, y);
+                timestep = 0;
+            }
+            y[timestep] = sample;
+            timestep++;
 		}
 
 	}
