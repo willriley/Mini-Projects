@@ -35,7 +35,7 @@ public class Breakout extends GraphicsProgram {
 	
 	private GOval ball;
 	private static final int BALL_RADIUS = 10;
-	private static final int BALL_DELAY = 10; // ms delay for ball animation
+	private static final int BALL_DELAY = 18; // ms delay for ball animation
 	private double vx, vy;
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
@@ -74,19 +74,6 @@ public class Breakout extends GraphicsProgram {
 	private void gameOver() {
 		removeAll();
 		displayResults(livesLeft>0);
-		
-		/*
-		GLabel endText;
-		if (livesLeft == 0) {
-			endText = new GLabel("You Lost ");
-		} else if (bricksLeft == 0) {
-			endText = new GLabel("YOU WIN!!!");
-		} else {
-			endText = new GLabel("ERROR");
-		}
-		endText.setFont("Serif-50");
-		add(endText, WIDTH/2-endText.getWidth()/2, HEIGHT/2-endText.getAscent());
-		*/
 	}
 	
 	private void displayResults(Boolean b) {
@@ -135,7 +122,8 @@ public class Breakout extends GraphicsProgram {
 	
 	private void drawLabels() {
 		livesLabel = new GLabel("Lives:  " + livesLeft);
-		add(livesLabel,WIDTH-LABEL_X_OFFSET-livesLabel.getWidth(),LABEL_Y_OFFSET);
+		add(livesLabel, WIDTH-LABEL_X_OFFSET-livesLabel.getWidth(),
+			LABEL_Y_OFFSET);
 		scoreLabel = new GLabel("Score: " + score); 
 		add(scoreLabel,LABEL_X_OFFSET, LABEL_Y_OFFSET);
 	}
@@ -149,7 +137,7 @@ public class Breakout extends GraphicsProgram {
 		// if it's something else, i.e. a brick, then removes it & bounces the ball
 		GObject collided = getCollidingObj();
 		if (collided == paddle) {
-			vy = -vy;
+			vy*=-BOUNCE_ACCEL;
 		} else if (collided != null && collided != livesLabel
 				&& collided != scoreLabel) {
 			remove(collided); 
@@ -176,7 +164,7 @@ public class Breakout extends GraphicsProgram {
 	private void checkWalls() {
 		// if the ball hits the top wall, reverses sign of vy
 		// if it hits the side walls, reverses sign of vx
-		// if it hits the bottom wall, takes off a life & resets position
+		// if it hits the bottom wall, takes off a life & resets position and vel
 		if (ball.getX() <= 0 || (ball.getX() + 2*BALL_RADIUS) >= WIDTH) {
 			vx*=-BOUNCE_ACCEL;
 			vy*=BOUNCE_ACCEL;
