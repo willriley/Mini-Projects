@@ -60,6 +60,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
 		return size;
 	}
 
+	@Override
 	public void printDeque() {
 		Node pointer = sentinel;
 		while (pointer.next != sentinel) {
@@ -69,6 +70,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
 		System.out.println();
 	}
 
+	@Override
 	public Item removeFirst() {
 		if (isEmpty()) return null;
 
@@ -82,6 +84,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
 		return deleted.item;
 	}
 
+	@Override
 	public Item removeLast() {
 		if (size == 0) return null;
 
@@ -93,7 +96,7 @@ public class LinkedListDeque<Item> implements Deque<Item> {
 		return deleted.item;
 	} 
 
-
+	@Override
 	public Item get(int index) {
 		if (size == 0 || index >= size || index < 0) 
 			return null;
