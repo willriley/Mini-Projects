@@ -8,10 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-// TODO: add delay, allow game to end
-
 public class MainActivity extends AppCompatActivity {
-
     private TextView yourScore, cpuScore, turnScore;
     private ImageView dice;
     private int[] images = {R.drawable.dice1, R.drawable.dice2, R.drawable.dice3,
@@ -116,15 +113,13 @@ public class MainActivity extends AppCompatActivity {
                     userTurnScore++;
                 } else { currentCompScore += roll; }
         }
-
         updateLabels();
         if (haveWinner()) { gameOver(); }
     }
 
     /*
      * Called whenever any player's score eclipses 100.
-     * It displays who won, temporarily disables the buttons,
-     * and resets after 2000ms.
+     * Displays winner, disables the buttons, and resets.
      */
     public void gameOver() {
         TextView endMessage = (TextView)findViewById(R.id.endMessage);
