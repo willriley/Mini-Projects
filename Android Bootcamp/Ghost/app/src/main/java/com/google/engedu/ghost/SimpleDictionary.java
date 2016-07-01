@@ -49,11 +49,11 @@ public class SimpleDictionary implements GhostDictionary {
         int upperBound = bIndex;
 
         while (words.get(lowerBound).startsWith(prefix)) {
-            lowerBound--;
+            if (lowerBound > 0) lowerBound--;
         }
         lowerBound++;
         while (words.get(upperBound).startsWith(prefix)) {
-            upperBound++;
+            if (upperBound < words.size() - 1) upperBound++;
         }
 
         Random r = new Random();

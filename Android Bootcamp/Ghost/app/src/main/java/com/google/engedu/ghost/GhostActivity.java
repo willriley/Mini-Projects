@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Random;
 
 public class GhostActivity extends AppCompatActivity {
+    private static final int MIN_WORD_LENGTH = 3;
     private static final String COMPUTER_TURN = "Computer's turn";
     private static final String USER_TURN = "Your turn";
     private GhostDictionary dictionary;
@@ -35,7 +36,7 @@ public class GhostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ghost);
         try {
             InputStream inputStream = getAssets().open("words.txt");
-            dictionary = new SimpleDictionary(inputStream);
+            dictionary = new FastDictionary(inputStream);
         } catch (IOException e) {
             Toast toast = Toast.makeText(this, "Could not load dictionary", Toast.LENGTH_LONG);
             toast.show();
@@ -45,7 +46,6 @@ public class GhostActivity extends AppCompatActivity {
         status = (TextView)findViewById(R.id.status);
         userScoreBox = (TextView)findViewById(R.id.userScoreBox);
         cpuScoreBox = (TextView)findViewById(R.id.cpuScoreBox);
-
 
         if (savedInstanceState != null) {
             currentWord = savedInstanceState.getString("fragment");
@@ -136,7 +136,7 @@ public class GhostActivity extends AppCompatActivity {
 
     private void computerTurn() {
         yourTurn = false;
-        String possibleWord = dictionary.getGoodWordStartingWith(currentWord);
+        String possibleWord = dictionary.getAnyWordStartingWith(currentWord);
 
         if (validWord()) { // if you've already completed a valid word, CPU wins
             challenge(null);
@@ -152,7 +152,7 @@ public class GhostActivity extends AppCompatActivity {
     }
 
     private boolean validWord() {
-        return currentWord.length() >= 4 && dictionary.isWord(currentWord);
+        return currentWord.length() >= MIN_WORD_LENGTH && dictionary.isWord(currentWord);
     }
 
     private void gameOver(boolean userWon) {
